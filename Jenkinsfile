@@ -110,7 +110,7 @@ pipeline {
   
   post {
     always {
-      // slackSend channel: 'pat-release-notification', color: 'green', message: 'test'
+      slackSend channel: 'pat-release-notification', color: 'green', message: 'test'
       cleanWs()
     }
   }
