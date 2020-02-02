@@ -77,6 +77,8 @@ pipeline {
     }
     stage('DeployToProduction') {
       steps {
+        echo "Branch: ${branch}"
+        
         input 'Does the staging environment look OK?'
         echo 'Deploy to production'
         withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
