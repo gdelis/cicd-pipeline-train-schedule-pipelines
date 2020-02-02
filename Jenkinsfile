@@ -74,6 +74,19 @@ pipeline {
           )
         }
       }
+      post {
+        always {
+          echo 'Deploy to Production stage status:'
+        }
+        success {
+          echo 'Success'
+          // slack notification
+        }
+        failure {
+          echo 'Failure'
+          // slack notification
+        }
+      }
     }
     stage('DeployToProduction') {
       steps {
@@ -105,12 +118,25 @@ pipeline {
           )
         }
       }
+      post {
+        always {
+          echo 'Deploy to Production stage status:'
+        }
+        success {
+          echo 'Success'
+          // slack notification
+        }
+        failure {
+          echo 'Failure'
+          // slack notification
+        }
+      }
     }
   }
   
   post {
     always {
-      slackSend channel: 'pat-release-notification', color: 'green', message: 'test'
+      // slackSend channel: 'pat-release-notification', color: 'green', message: 'test'
       cleanWs()
     }
   }
