@@ -50,7 +50,7 @@ pipeline {
     stage('DeployToStaging') {
       steps {
         echo 'Deploy to staging'
-        deployAction()
+        deployAction('staging')
       }
       post {
         always {
@@ -73,7 +73,7 @@ pipeline {
         input 'Does the staging environment look OK?'
         echo 'Deploy to production'
         
-        deployAction()
+        deployAction('production')
       }
       post {
         always {
@@ -99,14 +99,14 @@ pipeline {
   }
 }
 
-def deployAction() {
+def deployAction(String environmentValue) {
   withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
     sshPublisher(
       failOnError: true,
       continueOnError: false,
       publishers: [
         sshPublisherDesc(
-          configName: 'staging',
+          configName: ${environmentValue},
           sshCredentials: [
             username: "$USERNAME",
             encryptedPassphrase: "$USERPASS"
