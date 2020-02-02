@@ -16,6 +16,18 @@ pipeline {
           sh 'ls -ltr'
         }
       }
+      post {
+        always {
+          echo 'Retrieve files from remote repo:'
+        }
+        success {
+          echo 'Successfully'
+        }
+        failure {
+          echo 'Failed'
+          echo 'Notify team from slack'
+        }
+      }
     }
     stage('Build') {
       steps {
@@ -26,13 +38,15 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh './gradlew test'
+        echo 'Start test stage'
+        // sh './gradlew test'
       }
     }
   }
   
   post {
     always {
+      slackSend channel: 'pat-release-notification', color: 'green', message: 'test'
       cleanWs()
     }
   }
