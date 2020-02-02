@@ -4,6 +4,7 @@ pipeline {
   stages {
     stage('Checkout GitHub Repo') {
       steps {
+        cleanWs()
         echo 'Initial workspace files'
         sh 'ls -ltr'
         echo 'Retrive code from GitHub repo'
