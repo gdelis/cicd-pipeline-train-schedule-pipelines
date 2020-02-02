@@ -24,6 +24,11 @@ pipeline {
         archiveArtifacts artifacts: 'dist/trainSchedule.zip'
       }
     }
+    stage('Test') {
+      steps {
+        sh './gradlew test'
+      }
+    }
   }
   
   post {
