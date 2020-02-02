@@ -4,6 +4,8 @@ pipeline {
   stages {
     stage('Checkout GitHub Repo') {
       steps {
+        echo 'Initial workspace files'
+        sh 'ls -ltr'
         echo 'Retrive code from GitHub repo'
         git credentialsId: 'github_access_ky', url: 'https://github.com/gdelis/cicd-pipeline-train-schedule-pipelines'
         script {
