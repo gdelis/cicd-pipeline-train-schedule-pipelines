@@ -40,7 +40,7 @@ pipeline {
     stage('Test') {
       when {
         expression {
-          executeTestStage
+          executeTestStage == true
         }
       }
       steps {
@@ -77,7 +77,7 @@ pipeline {
     }
     stage('DeployToProduction') {
       steps {
-        echo "Branch: ${branch}"
+        echo "Branch: ${env.branch}"
         
         input 'Does the staging environment look OK?'
         echo 'Deploy to production'
